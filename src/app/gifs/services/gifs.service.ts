@@ -13,9 +13,25 @@ export class GifsService {
     return [...this._tagsHistory];
   }
 
-  public searchTag(tag: string): void {
+  private organizeHistory(tag: string): void {
+    tag.toLowerCase();
 
-    this._tagsHistory.unshift(tag);
+    // comprobamos si el usuario ha introducido un nombre ya buscado anteriormente
+    if (this._tagsHistory.includes(tag))
+      this._tagsHistory = this._tagsHistory.filter((oldTag) => oldTag !== tag)
+
+
+    this._tagsHistory.unshift(tag)
+
+    // si el historial tiene mas de 10 busquedas eliminaremos siempre la ultima
+    this._tagsHistory = this._tagsHistory.splice(0, 10)
+  }
+
+  public searchTag(tag: string): void {
+    this.organizeHistory(tag);
+
+
+
 
   }
 
