@@ -26,14 +26,11 @@ export class GifsService {
     // comprobamos si el usuario ha introducido un nombre ya buscado anteriormente
     if (this._tagsHistory.includes(tag))
       this._tagsHistory = this._tagsHistory.filter((oldTag) => oldTag !== tag)
-
-
     this._tagsHistory.unshift(tag)
 
     // si el historial tiene mas de 10 busquedas eliminaremos siempre la ultima
     this._tagsHistory = this._tagsHistory.splice(0, 10)
   }
-
 
   searchTag(tag: string): void {
     if (tag.length === 0) return;
@@ -48,7 +45,6 @@ export class GifsService {
     this.http.get<SearchResponse>(`${this.serviceUrl}/search`, { params })
       .subscribe(resp => {
         this.gifsList = resp.data
-        console.log({ gifs: this.gifsList })
       })
 
   }
